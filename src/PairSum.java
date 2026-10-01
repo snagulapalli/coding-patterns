@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PairSum {
-
     /* Given an array of integers not-sorted and a target value,
     return the indexes of any pair of numbers in the array that sum to the target.
     The order of the indexes in the result doesn't matter. If no pair is found, return an empty array.
@@ -46,8 +45,6 @@ public class PairSum {
         return new int[] {};
     }
 
-
-
     /* Given an array of integers sorted in ascending order and a target value,
     return the indexes of any pair of numbers in the array that sum to the target.
     The order of the indexes in the result doesn't matter. If no pair is found, return an empty array.
@@ -88,7 +85,6 @@ public class PairSum {
     }
 
     public static void main(String[] args) {
-
         System.out.println("=== getPairSumSorted ===");
         checkSorted( new int[] {-5, -2, 3, 4, 6}, 7, true);
         checkSorted(new int[] {1, 1, 1}, 2, true);
@@ -100,8 +96,7 @@ public class PairSum {
         checkSorted( new int[] {-1, 2, 3}, 2, true);
         checkSorted( new int[] {-3, -2, -1}, -5, true);
         checkSorted(new int[] {Integer.MAX_VALUE - 1, Integer.MAX_VALUE}, -3, false);
-        checkSorted(
-                new int[] {1, 3, Integer.MAX_VALUE}, 4, true);
+        checkSorted(new int[] {1, 3, Integer.MAX_VALUE}, 4, true);
 
         System.out.println("\n=== getPairSumUnsorted ===");
         check(new int[] {6, -2, 4, -5, 3}, 7, true);
@@ -117,16 +112,10 @@ public class PairSum {
         check( new int[] {3, -1, 2}, 2, true);
         check( new int[] {-1, -3, -2}, -5, true);
         check( new int[] {0, 5, 0}, 0, true);
-        check(
-                new int[] {Integer.MAX_VALUE, Integer.MAX_VALUE - 1}, -3, false);
-        check(
-                new int[] {Integer.MAX_VALUE, 3, 1}, 4, true);
-        check(
-                new int[] {Integer.MIN_VALUE, 5}, Integer.MAX_VALUE, false);
-        check(
-                new int[] {Integer.MIN_VALUE, -1}, Integer.MAX_VALUE, false);
+        check(new int[] {Integer.MAX_VALUE, Integer.MAX_VALUE - 1}, -3, false);
+        check(new int[] {Integer.MAX_VALUE, 3, 1}, 4, true);
+        check(new int[] {Integer.MIN_VALUE, 5}, Integer.MAX_VALUE, false);
+        check(new int[] {Integer.MIN_VALUE, -1}, Integer.MAX_VALUE, false);
         check(new int[] {3, 4, 3}, 6, true);
-
-
     }
 }

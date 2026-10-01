@@ -1,4 +1,3 @@
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +8,7 @@ public class PairSum {
     /* Given an array of integers not-sorted and a target value,
     return the indexes of any pair of numbers in the array that sum to the target.
     The order of the indexes in the result doesn't matter. If no pair is found, return an empty array.
- 
+
     Indexes must refer to the ORIGINAL array, so we can't sort in place and reuse
     getPairSumSorted (that returns positions in the sorted order and mutates the caller's array).
     One pass with a value -> index map instead: O(n) time, O(n) space, input untouched.
@@ -28,6 +27,27 @@ public class PairSum {
         }
         return new int[] {};
     }
+
+    static int[] getPairSumUnsortedUsingHashMap(int[] input, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < input.length; i++) {
+            map.put(input[i], i);
+        }
+
+        for (int i = 0; i < input.length; i++) {
+            long complement = (long) target - input[i];
+            if (complement < Integer.MIN_VALUE || complement > Integer.MAX_VALUE) {
+                continue;                                   // can't be in an int array
+            }
+            Integer j = map.get((int) complement);          // Integer key, not Long
+            if (j != null && j != i) {                      // don't pair an element with itself
+                return new int[] {j, i};
+            }
+        }
+        return new int[] {};
+    }
+
+
 
     /* Given an array of integers sorted in ascending order and a target value,
     return the indexes of any pair of numbers in the array that sum to the target.
@@ -100,8 +120,8 @@ public class PairSum {
     }
 
     public static void main(String[] args) {
-        BiFunction<int[], Integer, int[]> sorted = TripletSum::getPairSumSorted;
-        BiFunction<int[], Integer, int[]> unsorted = TripletSum::getPairSumUnsorted;
+        BiFunction<int[], Integer, int[]> sorted = PairSum::getPairSumSorted;
+        BiFunction<int[], Integer, int[]> unsorted = PairSum::getPairSumUnsortedUsingHashMap;
 
         System.out.println("=== getPairSumSorted ===");
         check("basic",                    sorted, new int[] {-5, -2, 3, 4, 6}, 7, true);
@@ -139,6 +159,9 @@ public class PairSum {
                 new int[] {Integer.MAX_VALUE, 3, 1}, 4, true);
         check("overflow: complement out of int range", unsorted,
                 new int[] {Integer.MIN_VALUE, 5}, Integer.MAX_VALUE, false);
+        check("overflow: wrapped complement collides", unsorted,
+                new int[] {Integer.MIN_VALUE, -1}, Integer.MAX_VALUE, false);
+        check("dup value, no self-pair", unsorted, new int[] {3, 4, 3}, 6, true);
 
         System.out.println("\n" + passed + " passed, " + failed + " failed");
         if (failed > 0) {

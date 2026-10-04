@@ -21,11 +21,8 @@ class Node {
     }
 }
 
-// Time:  O(V + E) - each node is cloned once (V), and each adjacency entry is
-//        processed once (2E for an undirected graph).
-// Space: O(V) auxiliary - visitedMap holds V entries, and the recursion stack can
-//        go V deep (e.g., a long chain). The cloned graph itself is O(V + E),
-//        but that is the required output.
+// Time: O(n + e)
+//Space: O(n) for the recursion stack plus the map, not counting the output graph.
 class Solution {
     Map<Node, Node> visitedMap = new HashMap<>();
 
